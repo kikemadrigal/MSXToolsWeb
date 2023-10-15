@@ -3,7 +3,7 @@ FROM tomcat:9.0
 LABEL maintainer="msxclaropijo@hotmail.com"
 WORKDIR /usr/local/tomcat
 CMD ["catalina.sh", "run"]
-COPY target/MSXToolsWeb-1.war /usr/local/tomcat/webapps/MSXToolsWeb.war
+COPY MSXToolsWeb-1.war /usr/local/tomcat/webapps/MSXToolsWeb.war
 
 
 #docker build -t mytomcat .
