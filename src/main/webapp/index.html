@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Start Page</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+    <body>
+        <form action="SvUsuarios" method="POST">
+            <p><label>DNI:</label><input type="text" name="dni"></p>
+            <p><label>Nombre:</label><input type="text" name="nombre"></p>
+            <p><label>Apellido:</label><input type="text" name="apellido"></p>
+            <p><label>Teléfono</label><input type="text" name="telefono"></p>
+            <button type="submit">Enviar</button>
+        </form>
+        <p>Ver lista de usuarios</p>
+        <p>Para ver la lista haga click</p>
+        <form action="SvUsuarios" method="GET">
+            <button type="submit">Mostrar Usuarios</button>
+        </form>
+    </body>
+</html>
