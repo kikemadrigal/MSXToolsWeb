@@ -1,10 +1,4 @@
-<%-- 
-    Document   : mostrarUsuarios
-    Created on : 15 oct. 2023, 4:58:27
-    Author     : casa
---%>
-
-<%@page import="Logica.Usuario"%>
+<%@page import="models.Usuario"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
