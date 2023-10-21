@@ -40,7 +40,7 @@
                                //System.out.println("No hay datos de este archivo");
                             }else{
                                FileUpload fileUpload=(FileUpload)request.getSession().getAttribute("fileUpload");
-                         %><a href="<%=fileUpload.getPath()+".zip"%>">Download</a><br><br><br><%
+                         %><a href='https://msxtoolsweb.onrender.com/files/<%=fileUpload.getName()+".zip"%>'>Download</a><br><br><br><%
                                // System.out.println("el array tiene "+String.valueOf(fileList.size()));
                                ArrayList<String> arrayListfileUploadText=(ArrayList<String>) request.getSession().getAttribute("arrayListText");
                         
