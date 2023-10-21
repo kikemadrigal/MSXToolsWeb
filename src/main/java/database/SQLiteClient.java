@@ -1,6 +1,7 @@
 
 package database;
 
+import Servlets.SvDeleteFileUpload;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -22,7 +23,7 @@ public class SQLiteClient {
     public SQLiteClient(){
         File fileDB=new File("MSXTools.db");
         //String url="jdbc:sqlite:"+fileDB.getAbsolutePath();
-        String url="jdbc:sqlite:"+Constants.pathDB+"MSXTools.db";
+        String url="jdbc:sqlite:"+Constants.getPathDB()+"MSXTools.db";
         try {
             Class.forName("org.sqlite.JDBC");
             connection=DriverManager.getConnection(url);
@@ -31,7 +32,7 @@ public class SQLiteClient {
             //statement.executeUpdate("drop table if exists file");
             //create table file (id integer primary key autoincrement, name varchar (100), path text);
             //statement.executeUpdate("create table file (id integer primary key autoincrement, name varchar(100), path text)");
-            File pathFiles = new File(Constants.pathFiles);
+            File pathFiles = new File(Constants.getPathFiles());
             if (!pathFiles.exists()) {
                 pathFiles.mkdir();
             } else {
@@ -64,9 +65,35 @@ public class SQLiteClient {
         }
     }
     
+    public void deleteFile(int id) {
+        try
+        {
+          statement.setQueryTimeout(30);  // set timeout to 30 sec.
+          ResultSet rs = statement.executeQuery("select * from file where id="+id);
+          while(rs.next())
+          {
+            String path= rs.getString("path");
+            File file = new File(path);
+            File fileZip = new File(path+".zip");
+            file.delete();
+            fileZip.delete();
+          }
+          int deletedRows = statement.executeUpdate("DELETE FROM file WHERE id LIKE '"+id+"'");
+          System.out.println("filas borradas: "+deletedRows);
+          connection.close();
+        }
+        catch(SQLException e)
+        {
+          System.err.println(e.getMessage());
+        }
+
+
+    }
+    
+    
     
     private void deleteAll(){
-        File pathFiles = new File(Constants.pathFiles);
+        File pathFiles = new File(Constants.getPathFiles());
         if (!pathFiles.exists()) {
             pathFiles.mkdir();
         } else {

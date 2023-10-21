@@ -1,6 +1,6 @@
 
 FROM tomcat:9.0
-LABEL maintainer="msxclaropijo@hotmail.com"
+LABEL maintainer="MSXSpain@hotmail.com"
 WORKDIR /usr/local/tomcat
 CMD ["catalina.sh", "run"]
 COPY MSXToolsWeb-1.war /usr/local/tomcat/webapps/MSXToolsWeb.war
@@ -8,7 +8,7 @@ COPY MSXToolsWeb-1.war /usr/local/tomcat/webapps/MSXToolsWeb.war
 #1 Cambia el directorio de la clase C:\Users\casa\Desktop\netbeans-proyects\MSXToolsWeb\src\main\java\utils\Constants.java y adaptalo a linux
 #2 mvn clean
 #3 mvn package
-#4 copia el wr que te ha metido en C:\apache-tomcat-9.0.78\webapps y pégalo en la raiz de este proyecto
+#4 copia el war que te ha metido en C:\apache-tomcat-9.0.78\webapps y pégalo en la raiz de este proyecto
 #5 docker build -t mytomcat .
 #6 docker run --rm -d -p 8080:8080 --name tomcat-container mytomcat
 #7 ve a http://localhost:8080/MSXToolsWeb/index.html
@@ -25,5 +25,6 @@ COPY MSXToolsWeb-1.war /usr/local/tomcat/webapps/MSXToolsWeb.war
     #git add .
     #git commit -m "nuevo commit"
     #git push origin main
+    #Ve a https://msxtoolsweb.onrender.com/MSXToolsWeb/
 
 

@@ -33,16 +33,16 @@
                      
                         <% 
                            
-                            if(request.getSession().getAttribute("arrayList") == null)
+                            if(request.getSession().getAttribute("arrayListText") == null)
                             {
                         %><p>empty file</p><%
                                //fileList.add(new FileUpload(0,"","List empty"));
                                //System.out.println("No hay datos de este archivo");
                             }else{
-                               String url=(String)request.getSession().getAttribute("url");
-                         %><a href="<%=url%>">Download</a><br><br><br><%
+                               FileUpload fileUpload=(FileUpload)request.getSession().getAttribute("fileUpload");
+                         %><a href="<%=fileUpload.getPath()+".zip"%>">Download</a><br><br><br><%
                                // System.out.println("el array tiene "+String.valueOf(fileList.size()));
-                               ArrayList<String> arrayListfileUploadText=(ArrayList<String>) request.getSession().getAttribute("arrayList");
+                               ArrayList<String> arrayListfileUploadText=(ArrayList<String>) request.getSession().getAttribute("arrayListText");
                         
                                for (String line:arrayListfileUploadText){
                         %>

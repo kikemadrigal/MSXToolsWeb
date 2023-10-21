@@ -4,15 +4,24 @@
  */
 package utils;
 
+import Servlets.SvShowFileUpload;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 import models.Sprite;
 
 /**
@@ -276,6 +285,25 @@ public class FileManager {
     }
     
     
-    
+    public void createZip(File file,ArrayList<String> texts) {
+        ZipOutputStream zos = null;
+        InputStream is = null;
+        try {
+            zos = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(new File(Constants.getPathFiles()+file.getName()+".zip"))));
+            is = new FileInputStream(new File(file.getAbsolutePath()));
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(SvShowFileUpload.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        for(String text:texts){
+            try {
+                zos.putNextEntry(new ZipEntry(file.getName()));
+                zos.write(is.readAllBytes());
+                zos.closeEntry();
+                zos.close();
+            } catch (IOException ex) {
+                Logger.getLogger(SvShowFileUpload.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
     
 }

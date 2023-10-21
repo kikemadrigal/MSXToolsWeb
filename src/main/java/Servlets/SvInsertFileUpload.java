@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 
 
 import javax.servlet.ServletException;
@@ -34,7 +35,7 @@ import utils.StringManager;
 @WebServlet(name = "SvInsertFileUpload", urlPatterns = {"/SvInsertFileUpload"})
 public class SvInsertFileUpload extends HttpServlet {
     private FileController fileController=new FileController();
-    private File filesUploads=new File(Constants.pathFiles);
+    private File filesUploads=new File(Constants.getPathFiles());
     private String[] extensiones={".bas", ".BAS"};
     
     private FileManager fileManager=new FileManager();
@@ -75,16 +76,18 @@ public class SvInsertFileUpload extends HttpServlet {
                            System.out.println("estamos dentro de saveFileUpload");
             if(isExtension(part.getSubmittedFileName(), extensiones)){
                 String fileAbsolutePath=saveFile(part, filesUploads);
-                System.out.println(fileAbsolutePath);
                 Path path=Paths.get(part.getSubmittedFileName());
                 String fileNameOriginFile=path.getFileName().toString();
-                File fileDestiny=new File(Constants.pathFiles+fileNameOriginFile);
-                //Convertimos el archivo subido al servidor
-                System.out.println("Servlet nsert file dice: "+fileAbsolutePath);
+                File fileDestiny=new File(Constants.getPathFiles()+fileNameOriginFile);
                 File file=new File(fileAbsolutePath);
                 file.createNewFile();
                 if(fileManager.checkFile(file)){
+                    //Creamos el archivo sin comentarios
                    deleteComments.converterWithFileDestiny(file,fileDestiny,comments,excepted); 
+                   //Creamos el zip
+                   ArrayList<String> arrayListText=fileManager.readFile(fileDestiny);
+                   fileManager.createZip(fileDestiny, arrayListText);   
+                   //Lo metemos en la base de datos
                    sqliteClient.insertFileDataBase(fileDestiny);                   
                 }
                 else
